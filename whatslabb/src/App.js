@@ -31,24 +31,7 @@ const MessageInput = styled.input`
 
 class App extends React.Component {
   state = {
-    messages: [
-      {
-        user: "Marco",
-        text: "yo!"
-      },
-      {
-        user: "João",
-        text: "Olar!"
-      },
-      {
-        user: "Maria",
-        text: "Olá!"
-      },
-      {
-        user: "Dalsin",
-        text: "Eu tava na porta, chefe"
-      }
-    ],
+    messages: [],
     userValue: "",
     messageValue: ""
   }
@@ -61,13 +44,23 @@ class App extends React.Component {
     this.setState({ messageValue: event.target.value })
   }
 
+  sendMessage = () => {
+    const newMessage = {
+      user: this.state.userValue,
+      text: this.state.messageValue
+    }
+    console.log(newMessage)
+    const newMessagesArray = [newMessage, ...this.state.messages]
+    this.setState({ messages: newMessagesArray, messageValue: "" })
+  }
+
   render() {
 
     return (
       <AppContainer>
         <MessagesContainer>
-          {this.state.messages.map((message) => {
-            return <p>
+          {this.state.messages.map((message, index) => {
+            return <p key={index}>
               <strong>{message.user}</strong>: {message.text}
             </p>
           })}
@@ -82,7 +75,7 @@ class App extends React.Component {
             onChange={this.onChangeMessageValue}
             value={this.state.messageValue}
             placeholder={"Mensagem"} />
-          <button>Enviar</button>
+          <button onClick={this.sendMessage}>Enviar</button>
         </InputsContainer>
       </AppContainer>
     );
