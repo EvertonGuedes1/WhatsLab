@@ -30,8 +30,8 @@ const MessageInput = styled.input`
 `
 
 class App extends React.Component {
-  render() {
-    const messages = [
+  state = {
+    messages: [
       {
         user: "Marco",
         text: "yo!"
@@ -48,12 +48,25 @@ class App extends React.Component {
         user: "Dalsin",
         text: "Eu tava na porta, chefe"
       }
-    ]
+    ],
+    userValue: "",
+    messageValue: ""
+  }
+
+  onChangeUserValue = (event) => {
+    this.setState({ userValue: event.target.value })
+  }
+
+  onChangeMessageValue = (event) => {
+    this.setState({ messageValue: event.target.value })
+  }
+
+  render() {
 
     return (
       <AppContainer>
         <MessagesContainer>
-          {messages.map((message) => {
+          {this.state.messages.map((message) => {
             return <p>
               <strong>{message.user}</strong>: {message.text}
             </p>
@@ -61,8 +74,14 @@ class App extends React.Component {
 
         </MessagesContainer>
         <InputsContainer>
-          <NameInput placeholder={"Nome"} />
-          <MessageInput placeholder={"Mensagem"} />
+          <NameInput
+            onChange={this.onChangeUserValue}
+            value={this.state.userValue}
+            placeholder={"Nome"} />
+          <MessageInput
+            onChange={this.onChangeMessageValue}
+            value={this.state.messageValue}
+            placeholder={"Mensagem"} />
           <button>Enviar</button>
         </InputsContainer>
       </AppContainer>
