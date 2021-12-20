@@ -31,15 +31,34 @@ const MessageInput = styled.input`
 
 class App extends React.Component {
   render() {
+    const messages = [
+      {
+        user: "Marco",
+        text: "yo!"
+      },
+      {
+        user: "João",
+        text: "Olar!"
+      },
+      {
+        user: "Maria",
+        text: "Olá!"
+      },
+      {
+        user: "Dalsin",
+        text: "Eu tava na porta, chefe"
+      }
+    ]
+
     return (
       <AppContainer>
         <MessagesContainer>
-          <p>
-            <strong>Maria</strong>: Olá!
-          </p>
-          <p>
-            <strong>João</strong>: Olár!
-          </p>
+          {messages.map((message) => {
+            return <p>
+              <strong>{message.user}</strong>: {message.text}
+            </p>
+          })}
+
         </MessagesContainer>
         <InputsContainer>
           <NameInput placeholder={"Nome"} />
